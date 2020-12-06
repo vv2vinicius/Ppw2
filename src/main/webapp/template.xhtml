@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -15,18 +16,17 @@
                 <h:graphicImage library="os" name="images/logo.png"></h:graphicImage>
             </div>
             <nav class="menu">
-                <a href="#" class="submenu-toggle"><i class="fa fa-fw fa-dashboard"></i>Menu 1
+                <a href="index.xhtml">
+                    <i class="fa fa-fw fa-dashboard"></i> Dashboard
+                </a>
+
+                <a href="#" class="submenu-toggle">
+                    <i class="fa fa-fw fa-file-text-o"></i> Cadastros
                 </a>
                 <ul>
-                    <li><a href="#"><span> &#9860; </span>Sub</a></li>
-                    <li><a href="#"><span> &#9860; </span>Sub</a></li>
-                    <li><a href="#"><span> &#9860; </span>Sub</a></li>
-                </ul>
-                <a href="#" class="submenu-toggle"><span> &#9860; </span>Menu 1
-                </a>
-                <ul>
-                    <li><a href="#"><span> &#9860; </span>Sub</a></li>
-                    <li><a href="#"><span> &#9860; </span>Sub</a></li>
+                    <li><a href="gerenciar-usuarios.xhtml"><i class="fa fa-fw fa-user"></i> Usuários</a></li>
+                    <li><a href="gerenciar-servicos.xhtml"><i class="fa fa-fw fa-wrench"></i> Serviços</a></li>
+                    <li><a href="gerenciar-clientes.xhtml"><i class="fa fa-fw fa-users"></i> Clientes</a></li>
                     <li><a href="#"><span> &#9860; </span>Sub</a></li>
                 </ul>
                 <a href="#"><span> &#9860; </span>Menu 2</a>
@@ -41,6 +41,9 @@
             </div>        
         </header>
         <main>
+            <p:messages>
+                <p:autoUpdate/>
+            </p:messages>
             <ui:insert></ui:insert>
         </main>
         <footer>
