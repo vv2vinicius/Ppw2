@@ -1,10 +1,17 @@
 package br.edu.iftm.os.bean;
 
+import br.edu.iftm.os.logic.PermissaoLogic;
+import br.edu.iftm.os.logic.UsuarioLogic;
+import br.edu.iftm.os.model.Permissao;
 import br.edu.iftm.os.model.Usuario;
-import br.edu.iftm.os.repository.UsuarioRepository;
-import java.io.Serializable;
+import br.edu.iftm.os.util.MD5Util;
+import br.edu.iftm.os.util.StringHelper;
+import br.edu.iftm.os.util.exception.ErroSistemaException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import javax.annotation.PostConstruct;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -14,41 +21,51 @@ import lombok.Setter;
 @Named
 @SessionScoped
 @Getter @Setter
-public class UsuarioBean implements Serializable {
+public class UsuarioBean extends CrudBean<Usuario, UsuarioLogic>{
     
     @Inject
-    private UsuarioRepository repostorio;
+    private UsuarioLogic logic;
     
-    private Usuario usuario;
-    private List<Usuario> usuarios;
+    private String senha;
     
-    @PostConstruct
-    public void init(){
-        novo();
+    @Inject
+    private PermissaoLogic permissaoLogic;
+
+    public UsuarioBean() {
+        super(Usuario.class);
+    }
+
+    @Override
+    public void salvar() {
+        if(StringHelper.isNotEmpty(this.senha)){
+            this.senha = MD5Util.md5Hex(senha);
+            getEntidade().setSenha(this.senha);
+        }
+        super.salvar();
     }
     
-    public void novo() {
-        this.usuario = new Usuario();
+    
+
+    @Override
+    public UsuarioLogic getLogic() {
+        return this.logic;
     }
     
-    public void salvar(){
-        this.repostorio.salvar(this.usuario);
-        novo();
+    public void alterarAtivacao(){
+        if(this.getEntidade().getDataDesativacao() == null){
+            this.getEntidade().setDataDesativacao(new Date());
+        } else {
+            this.getEntidade().setDataDesativacao(null);
+        }
+        addMensagemAviso("Para confirmar click em salvar.");
     }
     
-    public void editar(Usuario usuario) {
-        this.usuario = usuario;
+    public List<Permissao> getPermissoes() {
+        try {
+            return permissaoLogic.buscar();
+        } catch (ErroSistemaException ex) {
+            addMensagemErro(ex.getMessage());
+            return new ArrayList<>();
+        }
     }
-    
-    public void deletar(Usuario usuario){
-        Usuario u = new Usuario();
-        u.setId(usuario.getId());
-        this.repostorio.deletar(u);
-        usuarios.remove(u);
-    }
-    
-    public void listar(){
-        this.usuarios = this.repostorio.listar();
-    }
-    
 }

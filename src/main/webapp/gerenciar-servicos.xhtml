@@ -4,25 +4,14 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      template="template.xhtml">
+      template="template.xhtml"
+      xmlns:os="http://xmlns.jcp.org/jsf/composite/oscomponente">
     
       
         <h:form>
-            <p:toolbar>
-                <p:toolbarGroup>
-                    <p:commandButton icon="fa fa-fw fa-file" actionListener="#{servicoBean.novo()}"
-                                     update="@form" value="Novo"
-                                     ></p:commandButton>
-                    <p:commandButton icon="fa fa-fw fa-save" actionListener="#{servicoBean.salvar()}"
-                                     rendered="#{servicoBean.status.name() != 'BUSCA'}"
-                                     update="@form" value="Salvar"
-                                     ></p:commandButton>
-                    <p:commandButton icon="fa fa-fw #{servicoBean.status.name() == 'BUSCA'?'fa-search':'fa-mail-reply'}" actionListener="#{servicoBean.buscar()}"
-                                     update="@form" value="#{servicoBean.status.name() == 'BUSCA'?'Buscar':'Voltar'}"></p:commandButton>
-                </p:toolbarGroup>
-            </p:toolbar>
+            <os:toolbar bean="#{servicoBean}"></os:toolbar>
            
-            <p:spacer></p:spacer>
+            
             <p:panelGrid columns="2" styleClass="ui-panelgrid-blank" rendered="#{servicoBean.status.name() == 'NOVO'}">
                 <h:outputLabel value="Nome"></h:outputLabel>
                 <p:inputText></p:inputText>

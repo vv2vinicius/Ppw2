@@ -4,26 +4,14 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      template="template.xhtml">
+      template="template.xhtml"
+      xmlns:os="http://xmlns.jcp.org/jsf/composite/oscomponente">
     
-      
         <h:form>
-            <p:toolbar>
-                <p:toolbarGroup>
-                    <p:commandButton icon="fa fa-fw fa-file" actionListener="#{clienteBean.novo()}"
-                                     update="@form" value="Novo"
-                                     ></p:commandButton>
-                    <p:commandButton icon="fa fa-fw fa-save" actionListener="#{clienteBean.salvar()}"
-                                     rendered="#{clienteBean.status.name() != 'BUSCA'}"
-                                     update="@form" value="Salvar"
-                                     ></p:commandButton>
-                    <p:commandButton icon="fa fa-fw #{clienteBean.status.name() == 'BUSCA'?'fa-search':'fa-mail-reply'}" actionListener="#{clienteBean.buscar()}"
-                                     update="@form" value="#{clienteBean.status.name() == 'BUSCA'?'Buscar':'Voltar'}"></p:commandButton>
-                </p:toolbarGroup>
-            </p:toolbar>
+            <os:toolbar bean="#{clienteBean}"></os:toolbar>
            
             <p:spacer></p:spacer>
-            <p:panelGrid columns="2" styleClass="ui-panelgrid-blank" rendered="#{clienteBean.status.name() == 'NOVO'}">
+            <p:panelGrid columns="2" styleClass="ui-panelgrid-blank" rendered="#{clienteBean.status.name() != 'BUSCA'}">
                 <h:outputLabel value="CNPJ"></h:outputLabel>
                 <p:inputText value="#{clienteBean.entidade.cpfCnpj}"></p:inputText>
                 <h:outputLabel value="RG"></h:outputLabel>
@@ -44,9 +32,17 @@
                 <p:column>
                     <p:commandButton icon="fa fa-fw fa-pencil" actionListener="#{clienteBean.editar(ent)}"
                                      update="@form" ></p:commandButton>
+                    <p:commandButton icon="fa fa-fw fa-trash" actionListener="#{clienteBean.deletar(ent)}"
+                                     update="@form" ></p:commandButton>
                 </p:column>
                 <p:column headerText="Nome">
                     <h:outputText value="#{ent.nomeFantasia}"></h:outputText>
+                </p:column>
+                <p:column headerText="E-mail">
+                    <h:outputText value="#{ent.email}"></h:outputText>
+                </p:column>
+                <p:column headerText="CPF">
+                    <h:outputText value="#{ent.cpfCnpj}"></h:outputText>
                 </p:column>
             </p:dataTable>
         </h:form>

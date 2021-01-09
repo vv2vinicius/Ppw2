@@ -1,6 +1,9 @@
 package br.edu.iftm.os.bean;
 
 import br.edu.iftm.os.logic.CrudLogic;
+import br.edu.iftm.os.util.Transacao;
+import br.edu.iftm.os.util.exception.ErroNegocioException;
+import br.edu.iftm.os.util.exception.ErroSistemaException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.logging.Level;
@@ -17,7 +20,7 @@ public abstract class CrudBean<E, L extends CrudLogic<E>> extends JSFUtil {
     private E entidade;
     private List<E> entidades;
     private Class<E> classeEntidade;
-    
+
     private enum Status {
         BUSCA,
         NOVO,
@@ -38,26 +41,58 @@ public abstract class CrudBean<E, L extends CrudLogic<E>> extends JSFUtil {
     }
 
     public void editar(E entidade) {
-        this.entidade = getLogic().buscarPorId(entidade);
-        status = Status.EDITA;
+        try {
+            this.entidade = getLogic().buscarPorId(entidade);
+            status = Status.EDITA;
+        } catch (ErroNegocioException ex) {
+            addMensagemErro(ex.getMessage());
+        } catch (ErroSistemaException ex) {
+            addMensagemFatal(ex.getMessage());
+            Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void deletar(E entidade){
+        try {
+            this.getLogic().deletar(entidade);
+            this.entidades.remove(entidade);
+        } catch (ErroNegocioException ex) {
+            addMensagemErro(ex.getMessage());
+        } catch (ErroSistemaException ex) {
+            addMensagemFatal(ex.getMessage());
+            Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void salvar() {
-        getLogic().salvar(this.entidade);
-        addMensagemInfo("Salvo com sucesso");
-        buscar();
+        try {
+            getLogic().salvar(this.entidade);
+            addMensagemInfo("Salvo com sucesso");
+            buscar();
+        } catch (ErroNegocioException ex) {
+            addMensagemErro(ex.getMessage());
+        } catch (ErroSistemaException ex) {
+            addMensagemFatal(ex.getMessage());
+            Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public void buscar() {
+     public void buscar() {
         if (!status.equals(Status.BUSCA)) {
             status = Status.BUSCA;
             return;
         }
-        this.entidades = getLogic().buscar(entidade);
-        if (this.entidades.isEmpty()) {
-            addMensagemAviso("Nenhum dado cadastrado.");
+        try {
+            this.entidades = getLogic().buscar(entidade);
+            if (this.entidades.isEmpty()) {
+                addMensagemAviso("Nenhum dado cadastrado.");
+            }
+        } catch (ErroNegocioException ex) {
+            addMensagemErro(ex.getMessage());
+        } catch (ErroSistemaException ex) {
+            addMensagemFatal(ex.getMessage());
+            Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     public abstract L getLogic();

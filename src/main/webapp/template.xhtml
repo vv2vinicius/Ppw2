@@ -21,17 +21,30 @@
                 </a>
 
                 <a href="#" class="submenu-toggle">
-                    <i class="fa fa-fw fa-file-text-o"></i> Cadastros
+                    <i class="fa fa-fw fa-file-text-o"></i> Cadastros <i class="fa fa-fw fa-angle-down"></i>
                 </a>
                 <ul>
                     <li><a href="gerenciar-usuarios.xhtml"><i class="fa fa-fw fa-user"></i> Usuários</a></li>
                     <li><a href="gerenciar-servicos.xhtml"><i class="fa fa-fw fa-wrench"></i> Serviços</a></li>
                     <li><a href="gerenciar-clientes.xhtml"><i class="fa fa-fw fa-users"></i> Clientes</a></li>
-                    <li><a href="#"><span> &#9860; </span>Sub</a></li>
                 </ul>
-                <a href="#"><span> &#9860; </span>Menu 2</a>
-                <a href="#"><span> &#9860; </span>Menu 3</a>
-                <a href="#"><span> &#9860; </span>Menu 4</a>
+                
+                <a href="#" class="submenu-toggle"><i class="fa fa-fw fa-gear"></i> OS <i class="fa fa-fw fa-angle-down"></i></a>
+                <ul>
+                    <li><a href="#"><i class="fa fa-fw fa-plus"></i> Registrar</a></li>
+                    <li><a href="#"><i class="fa fa-fw fa-refresh"></i> Atualizar</a></li>
+                </ul>
+                
+                <a href="#"><i class="fa fa-fw fa-calculator"></i> Caixa</a>
+                
+                <a href="#" class="submenu-toggle">
+                    <i class="fa fa-fw fa-server"></i> Sistema <i class="fa fa-fw fa-angle-down"></i>
+                </a>
+                <ul>
+                    <li><a href="#"><i class="fa fa-fw fa-wrench"></i> Configurações</a></li>
+                    <li><a href="#"><i class="fa fa-fw fa-question"></i> Sobre</a></li>
+                </ul>
+                
             </nav>
         </aside>
         <header>
@@ -45,10 +58,12 @@
                 <p:autoUpdate/>
             </p:messages>
             <ui:insert></ui:insert>
+
         </main>
         <footer>
+            <h:graphicImage library="os" name="images/simbolo_if_mini.png"></h:graphicImage>
             <p>
-                OSystem
+                OSystem - Sistema de Ordem e Serviço da Disciplina de PPW2 - IFTM Campus Paracatu
             </p>
         </footer>
         <h:outputScript library="os" name="js/script.js"></h:outputScript>

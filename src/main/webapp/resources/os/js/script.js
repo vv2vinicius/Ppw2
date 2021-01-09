@@ -15,10 +15,10 @@ toggleAside = function(event) {
         }
     }
 };
-toggleSubmenu = function(event) {
-    event.preventDefault();
-    
-    var submenu = event.target;
+toggleSubmenu = function(submenu) {
+//    event.preventDefault();
+//    console.log(event);
+//    var submenu = event.target;
     if(submenu.classList.contains('submenu-open')){
         submenu.classList.remove('submenu-open');
     } else  {
@@ -27,7 +27,13 @@ toggleSubmenu = function(event) {
 };
 
 document.querySelector('.aside-toggle').addEventListener('click', event => toggleAside(event));
-document.querySelector('.submenu-toggle').addEventListener('click', event => toggleSubmenu(event));
+document.querySelectorAll('.submenu-toggle').forEach(submenu => {
+    //event quando clicado sobre o icone <i></i> nao permitia a abertura do menu
+    submenu.addEventListener('click', event => {
+        event.preventDefault();
+        toggleSubmenu(submenu);
+    });
+});
 
 
 function isMobile() {

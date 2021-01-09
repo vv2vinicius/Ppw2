@@ -13,6 +13,7 @@ html, body {
     padding: 0;
     margin: 0;
     height: 100%;
+    font-family: "Open Sans","Helvetica Neue",sans-serif;
 }
 /*Layout responsivo*/
 .responsive-admin {
@@ -106,7 +107,23 @@ main {
 }
 footer {
     flex: 0;
-    border-top: 1px solid var(--cor-principal1);
+    padding: 15px;
+    border-top: 1px solid var(--cor-item-foco);
+    display: flex;
+}
+
+footer img {
+    flex: 0;
+    padding-right: 20px;
+    height: 32px;
+    vertical-align: middle;
+}
+
+footer p {
+    flex: 1;
+    margin: 0;
+    line-height: 32px;
+    vertical-align: middle;
 }
 
 @media screen and (min-width: 768px) {
