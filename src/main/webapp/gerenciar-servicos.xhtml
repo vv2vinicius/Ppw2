@@ -13,10 +13,11 @@
            
             
             <p:panelGrid columns="2" styleClass="ui-panelgrid-blank" rendered="#{servicoBean.status.name() == 'NOVO'}">
-                <h:outputLabel value="Nome"></h:outputLabel>
-                <p:inputText></p:inputText>
+          
+                 <h:outputLabel value="Descrição"></h:outputLabel>
+                <p:inputText value="#{servicoBean.entidade.descricao}"></p:inputText>
                 <h:outputLabel value="Valor"></h:outputLabel>
-                <p:inputText></p:inputText>
+                <p:inputText value="#{servicoBean.entidade.valor}"></p:inputText>
             </p:panelGrid>
             
             <p:dataTable rendered="#{servicoBean.status.name() == 'BUSCA'}">

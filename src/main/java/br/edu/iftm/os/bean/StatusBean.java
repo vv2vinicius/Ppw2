@@ -1,20 +1,20 @@
 package br.edu.iftm.os.bean;
-import br.edu.iftm.os.logic.ServicoLogic;
-import br.edu.iftm.os.model.Servico;
+import br.edu.iftm.os.logic.StatusLogic;
+import br.edu.iftm.os.model.Status;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 
 @Named
 @SessionScoped
-public class ServicoBean extends CrudBean<Servico, ServicoLogic> {
+public class StatusBean extends CrudBean<Status, StatusLogic> {
 
-    public ServicoBean() {
-        super(Servico.class);
+    public StatusBean() {
+        super(Status.class);
     }
     
     @Override
-    public ServicoLogic getLogic() {
+    public StatusLogic getLogic() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
